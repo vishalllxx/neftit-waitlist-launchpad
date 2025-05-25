@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { Copy, Users, Trophy, Share2, ExternalLink, ArrowLeft } from 'lucide-react';
+import { Copy, Users, Trophy, Share2, ExternalLink, ArrowLeft, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from '@/hooks/use-toast';
 
 interface UserData {
@@ -68,15 +67,19 @@ const WaitlistDashboard = ({ userData, onBack }: WaitlistDashboardProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Animated background elements */}
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Enhanced animated background - matching landing page */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-pulse"></div>
+        <div className="absolute top-3/4 right-1/4 w-80 h-80 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full mix-blend-screen filter blur-3xl opacity-25 animate-pulse delay-1000"></div>
+        <div className="absolute bottom-1/4 left-1/2 w-72 h-72 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-pulse delay-2000"></div>
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
       </div>
 
-      {/* Header */}
-      <header className="relative z-10 p-6 flex items-center justify-between">
+      {/* Header - matching landing page */}
+      <header className="relative z-10 p-8 flex items-center justify-between">
         <Button
           onClick={onBack}
           variant="ghost"
@@ -85,157 +88,181 @@ const WaitlistDashboard = ({ userData, onBack }: WaitlistDashboardProps) => {
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </Button>
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">N</span>
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-2xl shadow-purple-500/50">
+            <Zap className="w-6 h-6 text-white" />
           </div>
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
             NEFTIT
           </h1>
         </div>
         <div className="w-20"></div>
       </header>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 pb-12">
-        {/* Welcome section with Twitter profile */}
-        <div className="mb-8">
-          <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-4">
-                <img
-                  src={twitterProfile.avatar}
-                  alt="Profile"
-                  className="w-16 h-16 rounded-full border-2 border-purple-400"
-                />
-                <div>
-                  <h2 className="text-2xl font-bold text-white">Welcome back!</h2>
-                  <p className="text-white/70">@{twitterProfile.username}</p>
-                  <p className="text-purple-400 text-sm">✓ Twitter Connected</p>
+      {/* Main content */}
+      <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-200px)] px-8">
+        <div className="max-w-2xl w-full text-center">
+          {/* Welcome section with Twitter profile */}
+          <div className="mb-16">
+            <div className="group relative mb-12">
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <div className="flex flex-col items-center space-y-4">
+                  <img
+                    src={twitterProfile.avatar}
+                    alt="Profile"
+                    className="w-20 h-20 rounded-full border-4 border-purple-400 shadow-2xl shadow-purple-500/50"
+                  />
+                  <div>
+                    <h2 className="text-3xl font-bold text-white mb-2">Welcome Pioneer!</h2>
+                    <p className="text-xl text-white/70 mb-2">@{twitterProfile.username}</p>
+                    <p className="text-purple-400 font-medium">✓ Connected & Verified</p>
+                  </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </div>
 
-        {/* Stats grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-white text-sm font-medium">Your Position</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-purple-400">#{position}</div>
-              <p className="text-white/60 text-sm">in waitlist</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-white text-sm font-medium">Referrals</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-green-400">{referralCount}</div>
-              <p className="text-white/60 text-sm">friends joined</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-white text-sm font-medium">Bonus Points</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-yellow-400">{referralCount * 10}</div>
-              <p className="text-white/60 text-sm">early access points</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Referral section */}
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20 mb-8">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Share2 className="w-5 h-5 mr-2" />
-              Share & Earn
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-white/70">
-              Share your referral link and move up the waitlist! Each friend who joins gives you +10 points.
-            </p>
-            
-            <div className="flex items-center space-x-2">
-              <div className="flex-1 bg-white/10 rounded-lg p-3 border border-white/20">
-                <code className="text-white text-sm break-all">{referralLink}</code>
+          {/* Stats grid */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-purple-500/50 transition-all duration-300">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
+                    <Users className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-lg font-semibold text-white">Position</h3>
+                  </div>
+                </div>
+                <div className="text-4xl font-bold text-purple-400 mb-2">#{position}</div>
+                <p className="text-white/60">in waitlist</p>
               </div>
-              <Button
-                onClick={copyReferralLink}
-                variant="outline"
-                size="sm"
-                className="bg-white/10 border-white/20 text-white hover:bg-white/20"
-              >
-                <Copy className="w-4 h-4" />
-              </Button>
             </div>
 
-            <div className="flex space-x-3">
-              <Button
-                onClick={shareOnTwitter}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Share on Twitter
-              </Button>
-              <Button
-                onClick={copyReferralLink}
-                variant="outline"
-                className="flex-1 bg-white/10 border-white/20 text-white hover:bg-white/20"
-              >
-                <Copy className="w-4 h-4 mr-2" />
-                Copy Link
-              </Button>
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition-all duration-300">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                    <Share2 className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-lg font-semibold text-white">Referrals</h3>
+                  </div>
+                </div>
+                <div className="text-4xl font-bold text-green-400 mb-2">{referralCount}</div>
+                <p className="text-white/60">friends joined</p>
+              </div>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Leaderboard */}
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Trophy className="w-5 h-5 mr-2" />
-              Leaderboard
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {leaderboard.map((user) => (
-                <div
-                  key={user.rank}
-                  className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10"
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-purple-500/50 transition-all duration-300">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                    <Trophy className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-lg font-semibold text-white">Points</h3>
+                  </div>
+                </div>
+                <div className="text-4xl font-bold text-yellow-400 mb-2">{referralCount * 10}</div>
+                <p className="text-white/60">bonus points</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Referral section */}
+          <div className="group relative mb-12">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+            <div className="relative bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-purple-500/50 transition-all duration-300">
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="w-14 h-14 bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                  <Share2 className="w-7 h-7 text-white" />
+                </div>
+                <div className="text-left">
+                  <h3 className="text-2xl font-bold text-white">Share & Earn</h3>
+                  <p className="text-white/70">Each friend gives you +10 points</p>
+                </div>
+              </div>
+              
+              <div className="bg-white/10 rounded-xl p-4 border border-white/20 mb-6">
+                <code className="text-white text-sm break-all font-mono">{referralLink}</code>
+              </div>
+
+              <div className="flex space-x-4">
+                <Button
+                  onClick={shareOnTwitter}
+                  className="flex-1 py-4 text-lg font-bold rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-2xl shadow-blue-500/50 border-0 transition-all duration-300"
                 >
-                  <div className="flex items-center space-x-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                      user.rank === 1 ? 'bg-yellow-500 text-black' :
-                      user.rank === 2 ? 'bg-gray-400 text-black' :
-                      user.rank === 3 ? 'bg-amber-600 text-white' :
-                      'bg-white/20 text-white'
-                    }`}>
-                      {user.rank}
-                    </div>
-                    <img
-                      src={user.avatar}
-                      alt={user.name}
-                      className="w-8 h-8 rounded-full"
-                    />
-                    <span className="text-white font-medium">{user.name}</span>
-                  </div>
-                  <div className="text-purple-400 font-semibold">
-                    {user.referrals} referrals
-                  </div>
-                </div>
-              ))}
+                  <ExternalLink className="w-5 h-5 mr-2" />
+                  Share on Twitter
+                </Button>
+                <Button
+                  onClick={copyReferralLink}
+                  className="flex-1 py-4 text-lg font-bold rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-2xl shadow-purple-500/50 border-0 transition-all duration-300"
+                >
+                  <Copy className="w-5 h-5 mr-2" />
+                  Copy Link
+                </Button>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+
+          {/* Leaderboard */}
+          <div className="group relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-orange-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+            <div className="relative bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-yellow-500/50 transition-all duration-300">
+              <div className="flex items-center space-x-4 mb-8">
+                <div className="w-14 h-14 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center">
+                  <Trophy className="w-7 h-7 text-white" />
+                </div>
+                <div className="text-left">
+                  <h3 className="text-2xl font-bold text-white">Leaderboard</h3>
+                  <p className="text-white/70">Top referrers</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {leaderboard.map((user) => (
+                  <div
+                    key={user.rank}
+                    className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold ${
+                        user.rank === 1 ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white' :
+                        user.rank === 2 ? 'bg-gradient-to-r from-gray-400 to-gray-500 text-white' :
+                        user.rank === 3 ? 'bg-gradient-to-r from-amber-600 to-orange-600 text-white' :
+                        'bg-white/20 text-white'
+                      }`}>
+                        {user.rank}
+                      </div>
+                      <img
+                        src={user.avatar}
+                        alt={user.name}
+                        className="w-10 h-10 rounded-full border-2 border-white/20"
+                      />
+                      <span className="text-white font-semibold text-lg">{user.name}</span>
+                    </div>
+                    <div className="text-purple-400 font-bold text-lg">
+                      {user.referrals}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Footer stats */}
+          <div className="mt-12 text-center">
+            <p className="text-white/50 text-lg">
+              You're among <span className="text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text font-bold text-xl">1,247</span> pioneers
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
