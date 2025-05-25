@@ -1,11 +1,48 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState } from 'react';
+import WaitlistLanding from '@/components/WaitlistLanding';
+import WaitlistDashboard from '@/components/WaitlistDashboard';
+
+interface UserData {
+  email: string;
+  twitterFollowed: boolean;
+  discordJoined: boolean;
+}
 
 const Index = () => {
+  const [currentView, setCurrentView] = useState<'landing' | 'dashboard'>('landing');
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  const handleWaitlistComplete = (data: UserData) => {
+    setUserData(data);
+    setCurrentView('dashboard');
+  };
+
+  const handleBackToLanding = () => {
+    setCurrentView('landing');
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="relative">
+      {/* Landing page */}
+      <div className={`transition-transform duration-700 ease-in-out ${
+        currentView === 'landing' ? 'translate-x-0' : '-translate-x-full'
+      }`}>
+        {currentView === 'landing' && (
+          <WaitlistLanding onComplete={handleWaitlistComplete} />
+        )}
+      </div>
+
+      {/* Dashboard page */}
+      <div className={`${
+        currentView === 'dashboard' ? 'block' : 'hidden'
+      } transition-all duration-700 ease-in-out`}>
+        {currentView === 'dashboard' && userData && (
+          <WaitlistDashboard 
+            userData={userData} 
+            onBack={handleBackToLanding}
+          />
+        )}
       </div>
     </div>
   );
